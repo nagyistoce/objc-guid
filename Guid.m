@@ -342,6 +342,7 @@
 		}
 	}
     
+	int x = 0;
     int dataIndex = 0;
     
     for (int i = 0, j = 0; i < guidString.length; i++, dataIndex++)
@@ -355,7 +356,8 @@
         
         int shift;
         int mask;
-        int x = j / 2;
+		
+		x = j / 2;
         
         if (j % 2 == 0)
         {
@@ -392,15 +394,15 @@
         
         j++;
     }
-    
-    return YES;
+	
+	return x == 15;
 }
 
 -(BOOL) isEqual:(id)other
 {
 	if (other == self)
 	{
-        return YES;
+		return YES;
 	}
 	
     if (other == nil || [other class] != Guid.class)
@@ -444,12 +446,12 @@
 
 -(NSString*) stringValue
 {
-    return [self stringValueWithFormat:GuidFormatDashed];
+	return [self stringValueWithFormat:GuidFormatDashed];
 }
 
 -(NSString*) description
 {
-    return [self stringValueWithFormat:GuidFormatDashed];
+	return [self stringValueWithFormat:GuidFormatDashed];
 }
 
 -(NSString*) compactStringValue
