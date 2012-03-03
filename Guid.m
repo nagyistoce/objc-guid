@@ -38,7 +38,7 @@
 {
 	if (self = [super init])
 	{
-		memcpy(&data[0], &bytes, 16);
+		memcpy(data, &bytes, 16);
 	}
 	
 	return self;
@@ -48,10 +48,7 @@
 {
     if (self = [super init])
     {
-        for (int i = 0; i < 16; i++)
-        {
-            data[i] = bytes[i];
-        }
+		memcpy(data, bytes, 16);
     }
     
     return self;
@@ -343,7 +340,7 @@
 	}
     
 	int x = 0;
-    int dataIndex = 0;
+	int dataIndex = 0;
     
     for (int i = 0, j = 0; i < guidString.length; i++, dataIndex++)
     {
@@ -355,7 +352,7 @@
         }
         
         int shift;
-        int mask;
+		int mask;
 		
 		x = j / 2;
         
