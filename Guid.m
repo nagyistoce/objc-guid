@@ -70,11 +70,6 @@
     return self;
 }
 
--(NSString*) stringValue
-{
-    return [self stringValueWithFormat:GuidFormatDashed];
-}
-
 -(NSString*) stringValueWithFormat:(GuidFormat)format
 {
 	int index = 0;
@@ -257,7 +252,7 @@
 	CFUUIDBytes bytes = CFUUIDGetUUIDBytes(uuid);
 	CFRelease(uuid);
 	
-    Guid* retval = [[Guid alloc] initWithCFUUIDBytes:bytes];
+	Guid* retval = [[Guid alloc] initWithCFUUIDBytes:bytes];
 	
 	return retval;
 }
@@ -276,7 +271,7 @@
 
 +(BOOL) guidBytesFromString:(NSString*)guidString bytes:(UInt8*)bytes
 {
-    int offset = 0;
+	int offset = 0;
 	int length = guidString.length;
 	
 	if (guidString == nil || length == 0)
@@ -284,7 +279,7 @@
 		return NO;
 	}
 	
-    char firstChar = [guidString characterAtIndex:0];
+	char firstChar = [guidString characterAtIndex:0];
 	memset(bytes, 0, 16);
     
     if (firstChar == '{')
@@ -408,7 +403,7 @@
         return YES;
 	}
 	
-    if (other == nil || ![other isKindOfClass:Guid.class])
+    if (other == nil || [other class] != Guid.class)
 	{
         return NO;
 	}
@@ -420,10 +415,10 @@
 {
 	NSUInteger retval = 0;
 	
-	retval = (data[0] | data[1] >> 8 | data[2] >> 16 | data[3] >> 24)
-		^ (data[4] | data[5] >> 8 | data[6] >> 16 | data[7] >> 24)
-		^ (data[8] | data[9] >> 8 | data[10] >> 16 | data[11] >> 24)
-		^ (data[12] | data[13] >> 8 | data[14] >> 16 | data[15] >> 24);
+	retval = (data[0] | data[1] << 8 | data[2] << 16 | data[3] << 24)
+		^ (data[4] | data[5] << 8 | data[6] << 16 | data[7] << 24)
+		^ (data[8] | data[9] << 8 | data[10] << 16 | data[11] << 24)
+		^ (data[12] | data[13] << 8 | data[14] << 16 | data[15] << 24);
 	
 	return retval;
 }
@@ -437,7 +432,7 @@
 	return retval;
 }
 
--(void) getBytes:(UInt8*)bytes
+-(void) byteDataToBuffer:(UInt8*)bytes
 {
     memcpy(bytes, data, 16);
 }
@@ -445,6 +440,11 @@
 -(BOOL) isEmpty
 {
 	return [self isEqual:Guid.emptyGuid];
+}
+
+-(NSString*) stringValue
+{
+    return [self stringValueWithFormat:GuidFormatDashed];
 }
 
 -(NSString*) description

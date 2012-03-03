@@ -7,7 +7,7 @@
 
 typedef enum
 {
-	GuidFormatPlain = 0,
+	GuidFormatCompact = 0,
 	GuidFormatIncludeDashes = 1,
 	GuidFormatIncludeBraces = 2,
 	GuidFormatIncludeParenthesis = 4,
@@ -28,7 +28,7 @@ GuidFormat;
 -(id) initWithBytes:(UInt8[16])bytes;
 -(NSString*) stringValue;
 -(CFUUIDBytes) uuidBytes;
--(void) getBytes:(UInt8*)bytes;
+-(void) byteDataToBuffer:(UInt8*)bytes;
 -(NSString*) stringValueWithFormat:(GuidFormat)format;
 -(BOOL) isEmpty;
 -(BOOL) isEqual:(id)object;
