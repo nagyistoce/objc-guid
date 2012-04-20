@@ -18,7 +18,7 @@ typedef enum
 }
 GuidFormat;
 
-@interface Guid : NSObject
+@interface Guid : NSObject<NSCoding>
 {
 @private
     UInt8 data[16];

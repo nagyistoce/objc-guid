@@ -17,6 +17,28 @@
 
 @implementation Guid
 
+-(id) initWithCoder:(NSCoder*)decoder
+{
+	if (self = [super init])
+	{
+		NSUInteger length;
+		
+		const uint8_t* bytes = [decoder decodeBytesForKey:@"data" returnedLength:&length];
+		
+		if (length == 16)
+		{
+			memcpy(data, bytes, length);
+		}
+	}
+	
+	return self;
+}
+
+-(void) encodeWithCoder:(NSCoder*)coder
+{
+	[coder encodeBytes:&data[0] length:16 forKey:@"data"];
+}
+
 +(Guid*) emptyGuid
 {
 	static Guid* retval;
