@@ -436,10 +436,10 @@
 {
 	NSUInteger retval = 0;
 	
-	retval = (data[0] | data[1] << 8 | data[2] << 16 | data[3] << 24)
-		^ (data[4] | data[5] << 8 | data[6] << 16 | data[7] << 24)
-		^ (data[8] | data[9] << 8 | data[10] << 16 | data[11] << 24)
-		^ (data[12] | data[13] << 8 | data[14] << 16 | data[15] << 24);
+	retval = *((UInt32*)&data[0])
+		^ *((UInt32*)&data[4])
+		^ *((UInt32*)&data[8])
+		^ *((UInt32*)&data[12]);
 	
 	return retval;
 }
